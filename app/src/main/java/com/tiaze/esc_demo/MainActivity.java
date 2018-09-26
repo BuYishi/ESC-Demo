@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.e(tag, "Build.MODEL: " + Build.MODEL);
         findViewById(R.id.enableBluetoothButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.printQRCodeButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(tag, "Build.MODEL: " + Build.MODEL);
                 if (printTool != null) {
                     try {
 //                        printTool.printText("\n\n\n\n", 1, 1, PrintTool.ALIGNMENT_LEFT);
