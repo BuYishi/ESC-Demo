@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 if (printTool != null) {
                     try {
 //                        printTool.printText("\n\n\n\n", 1, 1, PrintTool.ALIGNMENT_LEFT);
-                        printTool.printQRCode("All is well!\n一切安好！", 5, PrintTool.ALIGNMENT_CENTER);
+                        printTool.printQRCode("王垠\nyinwang.org", 5, PrintTool.ALIGNMENT_CENTER);
                         printTool.printText("\n\n\n\n", 1, 1, PrintTool.ALIGNMENT_RIGHT);
                     } catch (IOException ex) {
                         Log.e(tag, "ex: " + ex);
