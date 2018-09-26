@@ -217,9 +217,9 @@ public class PrintTool {
     //size范围：1-16
     private void printQRCodeBitmap(String data, int size, byte alignment) throws IOException {
         try {
-            HashMap<EncodeHintType, String> hints = new HashMap<>();
+            HashMap<EncodeHintType, Object> hints = new HashMap<>();
             hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-            hints.put(EncodeHintType.MARGIN, "0");
+            hints.put(EncodeHintType.MARGIN, 0);
             BitMatrix bitMatrix = new QRCodeWriter().encode(data, BarcodeFormat.QR_CODE, size, size, hints);
             int[] colors = new int[size * size];
             for (int y = 0; y < size; ++y) {
