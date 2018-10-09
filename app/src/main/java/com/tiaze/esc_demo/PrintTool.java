@@ -14,17 +14,22 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 
 public class PrintTool {
-    private BlueToothUtils blueToothUtils;
+    private OutputStream outputStream;
     private final String tag = "PrintTool";
     public static final byte ALIGNMENT_LEFT = 48;
     public static final byte ALIGNMENT_CENTER = 49;
     public static final byte ALIGNMENT_RIGHT = 50;
 
-    public PrintTool(BlueToothUtils blueToothUtils) {
-        this.blueToothUtils = blueToothUtils;
+    public PrintTool(OutputStream outputStream) {
+        this.outputStream = outputStream;
+    }
+
+    public void reset(OutputStream outputStream) {
+        this.outputStream = outputStream;
     }
 
     //fontSize范围：1-8
@@ -86,7 +91,8 @@ public class PrintTool {
         byte[] buffer = new byte[bytesForFontSize.length + textBytes.length];
         System.arraycopy(bytesForFontSize, 0, buffer, 0, bytesForFontSize.length);
         System.arraycopy(textBytes, 0, buffer, bytesForFontSize.length, textBytes.length);
-        blueToothUtils.sendData(buffer.length, buffer);
+        outputStream.write(buffer);
+//        blueToothUtils.sendData(buffer.length, buffer);
     }
 
     //unitSize范围：1-16
@@ -107,7 +113,8 @@ public class PrintTool {
             System.arraycopy(bytesForStoreQRCodeData, 0, buffer, bytesForQRCodeUnitSize.length, bytesForStoreQRCodeData.length);
             System.arraycopy(qrcodeDataBytes, 0, buffer, bytesForQRCodeUnitSize.length + bytesForStoreQRCodeData.length, qrcodeDataBytes.length);
             System.arraycopy(bytesForPrintQRCode, 0, buffer, bytesForQRCodeUnitSize.length + bytesForStoreQRCodeData.length + qrcodeDataBytes.length, bytesForPrintQRCode.length);
-            blueToothUtils.sendData(buffer.length, buffer);
+//            blueToothUtils.sendData(buffer.length, buffer);
+            outputStream.write(buffer);
             if (Build.MODEL.contains("P1") || Build.MODEL.contains("V1s"))
                 printText("\n", 1, 1, alignment);
         }
@@ -170,7 +177,12 @@ public class PrintTool {
                 }
             }
         }
-        blueToothUtils.sendData(dataArray.length, dataArray);
+        outputStream.write(dataArray);
+//        blueToothUtils.sendData(dataArray.length, dataArray);
+    }
+
+    public void sendCommand(byte[] command) throws IOException {
+        outputStream.write(command);
     }
 
     public void printTemplate(Context context) throws IOException {
@@ -235,6 +247,7 @@ public class PrintTool {
 
     private void setAlignment(byte alignment) throws IOException {
         byte[] bytesForAlignment = {27, 97, alignment};
-        blueToothUtils.sendData(bytesForAlignment.length, bytesForAlignment);
+//        blueToothUtils.sendData(bytesForAlignment.length, bytesForAlignment);
+        outputStream.write(bytesForAlignment);
     }
 }
