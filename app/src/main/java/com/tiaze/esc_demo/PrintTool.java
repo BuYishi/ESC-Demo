@@ -187,7 +187,7 @@ public class PrintTool {
 
     public void printTemplate(Context context) throws IOException {
         Bitmap bitmap = BitmapFactory.decodeStream(context.getAssets().open("icon_alipay.bmp"));
-        printBitmap(bitmap, PrintTool.ALIGNMENT_LEFT);
+        printBitmap(bitmap, PrintTool.ALIGNMENT_RIGHT);
         printText("天择信上科技\n", 1, 2, PrintTool.ALIGNMENT_CENTER);
         printText("天择信上科技\n", 1, 1, PrintTool.ALIGNMENT_CENTER);
         printText("\n", 1, 1, PrintTool.ALIGNMENT_LEFT);
@@ -215,7 +215,9 @@ public class PrintTool {
         if (Build.MODEL.contains("JICAI"))
             printText("\n", 1, 1, PrintTool.ALIGNMENT_LEFT);
         printQRCode("布伊什\nBu Ish", 5, PrintTool.ALIGNMENT_CENTER);
-        printText("\n", 1, 1, PrintTool.ALIGNMENT_LEFT);
+        if (Build.MODEL.contains("T2"))
+            printText("\n\n", 1, 1, PrintTool.ALIGNMENT_CENTER);
+        else printText("\n", 1, 1, PrintTool.ALIGNMENT_LEFT);
         contentsToPrint = new StringBuilder();
         contentsToPrint.append("收银员：天择信上科技\n");
         contentsToPrint.append("打印时间：2018-09-25 11:56:00\n");

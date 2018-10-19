@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Log.e(tag, "Build.MODEL: " + Build.MODEL);
+        Log.d(tag, "Build.MODEL: " + Build.MODEL);
         toast = Toast.makeText(this, null, Toast.LENGTH_SHORT);
         findViewById(R.id.enableBluetoothButton).setOnClickListener(new View.OnClickListener() {
             @Override
